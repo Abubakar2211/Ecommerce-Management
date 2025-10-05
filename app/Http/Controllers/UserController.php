@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         $validate = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'max:255', 'unique:users,email,'.$user->id],
         ]);
         $user->update($validate);
         return response()->json(['message' => "$user->name User Updated Successfully."]);
