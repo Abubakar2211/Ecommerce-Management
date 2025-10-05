@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         try {
             $users = User::with(['roles:id,name', 'roles.permissions:id,name', 'permissions:id,name'])
-                ->cursorPaginate(5, ['id', 'name', 'email']);
+                ->cursorPaginate(2, ['id', 'name', 'email']);
             $roles = Role::get(['id', 'name']);
             $permissions = Permission::get(['id', 'name']);
             return response()->json(['user' => $users, 'roles' => $roles, 'permissions' => $permissions]);
@@ -54,18 +54,25 @@ class UserController extends Controller
         $validate = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'max:255'],
-            'password_confirmation' => ['required', 'string', 'max:255', 'same:password'],
         ]);
         $user->update($validate);
-        return response()->json(['message' => "$user->name User Create Successfully."]);
+        return response()->json(['message' => "$user->name User Updated Successfully."]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(['message' => "$user->name User Deleted Successfully."]);
+    }
+    public function changePassword(Request $request,User $user){
+        $validate = $request->validate([
+            'password' => ['required','string','max:255'],
+            'confirmPassword' => ['required','string','same:password'],
+        ]);
+        $user->update($validate);
+        return response()->json(['message' => "$user->name User Password Change Successfully."]);
     }
 }
