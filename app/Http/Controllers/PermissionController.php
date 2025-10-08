@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\Permission;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-class PermissionController extends Controller implements HasMiddleware
+class PermissionController extends Controller 
+// implements HasMiddleware
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('permission:Permission view', only: ['index', 'show']),
-            new Middleware('permission:Permission create', only: ['create', 'store']),
-            new Middleware('permission:Permission edit', only: ['edit', 'update']),
-            new Middleware('permission:Permission delete', only: ['destroy']),
-            new Middleware('permission:Assign user permission', only: ['assignPermissionsToUser']),
-        ];
-    }
+    // public static function middleware(): array
+    // {
+    //     return [
+    //         new Middleware('permission:Permission view', only: ['index', 'show']),
+    //         new Middleware('permission:Permission create', only: ['create', 'store']),
+    //         new Middleware('permission:Permission edit', only: ['edit', 'update']),
+    //         new Middleware('permission:Permission delete', only: ['destroy']),
+    //         new Middleware('permission:Assign user permission', only: ['assignPermissionsToUser']),
+    //     ];
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -38,7 +39,7 @@ class PermissionController extends Controller implements HasMiddleware
         ]);
         $permission = Permission::create([
             'name' => $validate['name'],
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         return response()->json(['message' => "$permission->name Permission Create Successfully."]);
 
@@ -54,7 +55,7 @@ class PermissionController extends Controller implements HasMiddleware
         ]);
         $permission->update([
             'name' => $validate['name'],
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         return response()->json(['message' => "$permission->name Permission Updated Successfully."]);
     }

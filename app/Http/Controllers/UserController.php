@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         try {
             $users = User::with(['roles:id,name', 'roles.permissions:id,name', 'permissions:id,name'])
-                ->cursorPaginate(2, ['id', 'name', 'email']);
+                ->cursorPaginate(5, ['id', 'name', 'email']);
             $roles = Role::get(['id', 'name']);
             $permissions = Permission::get(['id', 'name']);
             return response()->json(['user' => $users, 'roles' => $roles, 'permissions' => $permissions]);

@@ -15,4 +15,5 @@ class Role extends SpatieRole
             set: fn(string $value) => ucfirst(strtolower($value))
         );
     }
+
 }

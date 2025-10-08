@@ -8,19 +8,20 @@ use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-class RoleController extends Controller implements HasMiddleware
+class RoleController extends Controller 
+// implements HasMiddleware
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('permission:Role view', only: ['index', 'show']),
-            new Middleware('permission:Role create', only: ['create', 'store']),
-            new Middleware('permission:Role edit', only: ['edit', 'update']),
-            new Middleware('permission:Role delete', only: ['destroy']),
-            new Middleware('permission:Assign permission', only: ['addPermissionToRole']),
-            new Middleware('permission:Assign role', only: ['assignRolesToUser']),
-        ];
-    }
+    // public static function middleware(): array
+    // {
+    //     return [
+    //         new Middleware('permission:Role view', only: ['index', 'show']),
+    //         new Middleware('permission:Role create', only: ['create', 'store']),
+    //         new Middleware('permission:Role edit', only: ['edit', 'update']),
+    //         new Middleware('permission:Role delete', only: ['destroy']),
+    //         new Middleware('permission:Assign permission', only: ['addPermissionToRole']),
+    //         new Middleware('permission:Assign role', only: ['assignRolesToUser']),
+    //     ];
+    // }
     public function index()
     {
         $roles = Role::get(['id', 'name']);
@@ -37,7 +38,7 @@ class RoleController extends Controller implements HasMiddleware
         ]);
         $role = Role::create([
             'name' => $validate['name'],
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         return response()->json(['message' => "$role->name Role Created Successfully."]);
     }
@@ -52,7 +53,7 @@ class RoleController extends Controller implements HasMiddleware
         ]);
         $role->update([
             'name' => $validate['name'],
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         return response()->json(['message' => "$role->name Role Updated Successfully."]);
     }
