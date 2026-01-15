@@ -39,11 +39,10 @@ class OrderController extends Controller
     {
         Order::with('product')->create([
             'user_id' => auth()->id(),
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
+            'total_price' => $request->total_price,
             'status' => $request->status
         ]);
-        return redirect()->route('product.index')->with('success', "$product->name Product Has Been Buy.");
+        return response()->json(["message"=>"$product->name Product Has Been Buy."]);
     }
 
     /**
@@ -75,7 +74,7 @@ class OrderController extends Controller
             'quantity' => $request->quantity,
             'status' => $request->status
         ]);
-        return redirect()->route('cardview')->with('success', "Order Has Been Updated Successfully.");
+        return response()->json(["message","Order Has Been Updated Successfully."]);
     }
 
     /**

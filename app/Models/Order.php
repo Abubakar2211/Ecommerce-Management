@@ -9,7 +9,7 @@ use App\Models\User;
 class Order extends Model
 {
     protected $table = 'orders';
-    protected $fillable = ['user_id','product_id','amount','quantity','status'];
+    protected $fillable = ['user_id','total_price','status'];
 
     public function product(){
         return $this->belongsTo(Product::class);
