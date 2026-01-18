@@ -2,6 +2,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,4 +19,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('assignRoleToUser/{user}', [RoleController::class, 'assignRolesToUser'])->name('api.assignRoleToUser');
     Route::post('assignPermissionsToUser/{user}', [PermissionController::class, 'assignPermissionsToUser'])->name('api.assignPermissionsToUser');
     Route::resource('order', OrderController::class)->names('api.order');
+    Route::apiResource("product",ProductController::class);
 });
