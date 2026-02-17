@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::get();
+        $orders = Order::with('user:id,name')->select('id', 'total_price', 'status', 'user_id')->get();
         return response()->json(['orders' => $orders]);
         // $orders = Order::with(['product:id,name,price,stock,description,image', 'user:id,name,email'])
         //                 ->where('status', 'Completed')->orderby('id', 'desc')
